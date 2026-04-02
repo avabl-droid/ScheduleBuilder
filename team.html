@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Team</title>
+    <link rel="stylesheet" href="scheduleStyles.css">
+</head>
+<body>
+
+    <div class="container">
+
+        <aside class="sidebar">
+            <h2>Scheduler</h2>
+            <nav>
+                <a href="mainSchedule.html">Schedule</a>
+                <a href="availability.html">My Availability</a>
+                <a href="#">Team</a>
+                <a href="#">Notifications</a>
+                <a href="login.html">Logout</a>
+            </nav>
+        </aside>
+
+        <main class="main">
+              <div class="topbar">
+            <h2>My Team</h2>
+
+            <!-- Add button -->
+            <a href="#addMember" class="add-btn">+ Add Member</a>
+        </div>
+
+        <!-- Team List -->
+        <table class="team-table">
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Email</th>
+                    <th>Role</th>
+                </tr>
+            </thead>
+
+            <tbody>
+                <tr>
+                    <td>Alex Johnson</td>
+                    <td>alex@company.com</td>
+                    <td>Employee</td>
+                </tr>
+
+                <tr>
+                    <td>Maria Lopez</td>
+                    <td>maria@company.com</td>
+                    <td>Employee</td>
+                </tr>
+
+            </tbody>
+        </table>
+
+        </main>
+    </div>
+
+    <!-- ADD MEMBER MODAL -->
+    <div id="addMember" class="modal">
+        <div class="modal-content">
+
+            <a href="#" class="close">&times;</a>
+
+            <h2>Add Team Member</h2>
+
+            <form>
+                <label>Employee Corporate Email</label>
+                <input type="email" placeholder="employee@company.com">
+
+                <label>Role (optional*)</label>
+                <input type="text" placeholder="e.g., Administrator">
+
+
+                <div class="info-box">
+                    <p> ✔ The employee will receive an invitation email</p>
+                    <p> ✔ They will access their account using this email</p>
+                </div>
+
+                <div class="modal-buttons">
+                    <button type="submit">Send Invite</button>
+                    <!--<a href="#" class="cancel-btn">Cancel</a>-->
+                </div>
+            </form>
+
+        </div>
+    </div>
+    
+</body>
+</html>

@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>My Availability</title>
+    <link rel="stylesheet" href="scheduleStyles.css">
+</head>
+
+<body>
+
+<div class="container">
+
+    <aside class="sidebar">
+        <h2>Scheduler</h2>
+        <nav>
+            <a href="mainSchedule.html">Schedule</a>
+            <a href="availability.html">My Availability</a>
+            <a href="#">Team</a>
+            <a href="#">Notifications</a>
+            <a href="login.html">Logout</a>
+        </nav>
+    </aside>
+
+    <main class="main">
+        <h2>My Availability</h2>
+
+        <!-- Availability Display -->
+        <div class="availability-list">
+            <div>Monday: 8:00 - 16:00</div>
+            <div>Tuesday: 12:00 - 18:00</div>
+            <div>Wednesday: 9:00 - 17:00</div>
+            <div>Thursday: 9:00 - 17:00</div>
+            <div>Friday: 10:00 - 15:00</div>
+            <div>Saturday: 10:00 15:00</div>
+            <div>Sunday: 10:00 15:00</div>
+        </div>
+
+
+        <a href="#editAvailability" class="add-btn">Change Availability</a>
+
+    </main>
+</div>
+
+<!-- MODAL -->
+<div id="editAvailability" class="modal">
+    <div class="modal-content wide">
+
+        <a href="#" class="close">&times;</a>
+
+        <h2>Please enter your new availability</h2>
+
+        <form class="availability-form">
+
+            <!-- MONDAY -->
+            <div class="day-row">
+                <div class="day-label">Monday</div>
+
+                <input type="checkbox" id="mon-toggle" class="toggle">
+
+                <!-- main avail input -->
+                <div class="time-group">
+                    From: <input type="time">
+                    To: <input type="time">
+
+                    <label for="tue-toggle" class="plus">+</label>
+                </div>
+
+                <!-- additional aavailability -->
+                <div class="time-group extra">
+                    From: <input type="time">
+                    To: <input type="time">
+                </div>
+            </div>
+
+            <!-- TUESDAY -->
+            <div class="day-row">
+                <div class="day-label">Tuesday</div>
+
+                <input type="checkbox" id="tue-toggle" class="toggle">
+
+                <div class="time-group">
+                    From: <input type="time">
+                    To: <input type="time">
+
+                    <label for="tue-toggle" class="plus">+</label>
+                </div>
+
+                <div class="time-group extra">
+                    From: <input type="time">
+                    To: <input type="time">
+                </div>
+            </div>
+
+            <!-- WEDNESDAY -->
+            <div class="day-row">
+                <div class="day-label">Wednesday</div>
+
+                <input type="checkbox" id="wed-toggle" class="toggle">
+
+                <div class="time-group">
+                    From: <input type="time">
+                    To: <input type="time">
+
+                    <label for="tue-toggle" class="plus">+</label>
+                </div>
+
+                <div class="time-group extra">
+                    From: <input type="time">
+                    To: <input type="time">
+                </div>
+            </div>
+
+            <!-- THURSDAY -->
+            <div class="day-row">
+                <div class="day-label">Thursday</div>
+
+                <input type="checkbox" id="thu-toggle" class="toggle">
+
+                <div class="time-group">
+                    From: <input type="time">
+                    To: <input type="time">
+
+                    <label for="tue-toggle" class="plus">+</label>
+                </div>
+
+                <div class="time-group extra">
+                    From: <input type="time">
+                    To: <input type="time">
+                </div>
+            </div>
+
+            <!-- FRIDAY -->
+            <div class="day-row">
+                <div class="day-label">Friday</div>
+
+                <input type="checkbox" id="fri-toggle" class="toggle">
+
+                <div class="time-group">
+                    From: <input type="time">
+                    To: <input type="time">
+
+                    <label for="tue-toggle" class="plus">+</label>
+                </div>
+
+                <div class="time-group extra">
+                    From: <input type="time">
+                    To: <input type="time">
+                </div>
+            </div>
+
+        </form>
+
+    </div>
+</div>
+
+</body>
+</html>

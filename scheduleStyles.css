@@ -1,0 +1,528 @@
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+}
+
+/**/
+
+/*MAIN PAGE- SCHEDULE*/
+/* Layout */
+.container {
+    display: flex;
+    height: 100vh;
+}
+
+.sidebar {
+    width: 200px;
+    background-color: #2c3e50;
+    color: white;
+    padding: 20px;
+}
+
+.sidebar h2 {
+    margin-bottom: 20px;
+}
+
+.sidebar a {
+    display: block;
+    color: white;
+    text-decoration: none;
+    margin: 10px 0;
+}
+
+.sidebar a:hover {
+    text-decoration: underline;
+}
+
+/* Main */
+.main {
+    flex: 1;
+    padding: 20px;
+}
+
+
+.topbar {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
+.add-btn {
+    margin-left: auto;
+    background-color: #27ae60;
+    color: white;
+    border: none;
+    padding: 10px;
+    cursor: pointer;
+}
+
+.add-btn:hover {
+    background-color: #219150;
+}
+
+/* SCHEDULE - Table  */
+.schedule {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.schedule th, .schedule td {
+    border: 1px solid #ccc;
+    padding: 10px;
+    text-align: center;
+}
+
+/* Shift blocks - заполнить ячейки таблицы */
+.shift {
+    background-color: #3498db;
+    color: white;
+    font-weight: bold;
+}
+
+/*ADD SHIFT POPUP - using javaScript*/ 
+/*
+/* Modal background 
+.modal {
+    display: none; /* скрыт по умолчанию 
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0,0,0,0.5);
+}
+
+/* Modal box 
+.modal-content {
+    background-color: white;
+    margin: 10% auto;
+    padding: 20px;
+    width: 300px;
+    border-radius: 10px;
+}
+
+/* Form 
+.modal-content form {
+    display: flex;
+    flex-direction: column;
+}
+
+.modal-content label {
+    margin-top: 10px;
+}
+
+.modal-content input,
+.modal-content select {
+    padding: 8px;
+    margin-top: 5px;
+}
+
+/* Buttons 
+.modal-buttons {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 15px;
+}
+
+.modal-buttons button {
+    padding: 8px;
+    cursor: pointer;
+}
+
+/* Checkbox 
+.checkbox {
+    margin-top: 10px;
+} */
+
+/*ADD SHIFT POPUP - pure CSS*/ 
+/* По умолчанию скрыто */
+.modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+
+    background: rgba(0,0,0,0.5);
+
+    opacity: 0;
+    pointer-events: none;
+
+    transition: 0.3s;
+}
+
+/* Когда нажали ссылку */
+.modal:target {
+    opacity: 1;
+    pointer-events: all;
+}
+
+.modal-content {
+    background: white;
+    width: 300px;
+    margin: 10% auto;
+    padding: 20px;
+    border-radius: 10px;
+    position: relative;
+}
+
+.modal-content form {
+    display: flex;
+    flex-direction: column;
+}
+
+.modal-content input,
+.modal-content select {
+    margin-top: 5px;
+    padding: 8px;
+}
+
+
+.close {
+    position: absolute;
+    right: 10px;
+    top: 10px;
+    text-decoration: none;
+    font-size: 20px;
+    color: black;
+}
+
+.modal-buttons {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 15px;
+}
+
+.cancel-btn {
+    text-decoration: none;
+    padding: 8px;
+    background: #ccc;
+}
+
+
+/*old - LOGIN PAGE - reuse for profile setup*/
+.page {
+    display: none;
+}
+
+#login {
+    display: block; /* стартовая страница */
+}
+
+.page:target {
+    display: block;
+}
+
+/* Login */
+.login-box {
+    width: 300px;
+    margin: 100px auto;
+    padding: 30px;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    text-align: center;
+}
+
+.login-box input {
+    width: 100%;
+    padding: 8px;
+    margin: 10px 0;
+}
+
+.login-btn {
+    display: block;
+    background: #3498db;
+    color: white;
+    padding: 10px;
+    text-decoration: none;
+    margin-top: 10px;
+}
+
+/*AVAILABILITY*/
+
+.availability-list {
+    margin: 20px 0;
+}
+
+.availability-list div {
+    padding: 8px;
+    border-bottom: 1px solid #ccc;
+}
+
+/*reflects on schedule*/
+.unavailable {
+    background-color: #eee;
+}
+
+.modal-content.wide {
+    width: 600px;
+}
+
+.availability-form {
+    margin-top: 20px;
+}
+
+.day-row {
+    display: flex;
+    align-items: flex-start;
+    margin-bottom: 15px;
+}
+
+.day-label {
+    width: 120px;
+    font-weight: bold;
+}
+
+.time-group {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+/* Extra row */
+.time-group.extra {
+    margin-left: 120px;
+    margin-top: 5px;
+}
+
+.time-group input {
+    padding: 5px;
+}
+
+.plus {
+    font-size: 20px;
+    cursor: pointer;
+    color: #3498db;
+}
+.plus {
+    font-size: 20px;
+    cursor: pointer;
+    color: #3498db;
+    margin-left: 10px;
+}
+
+.plus:hover {
+    color: #2980b9;
+}
+
+/* hide checkbox */
+.toggle {
+    display: none;
+}
+
+.time-group.extra {
+    display: none;
+    margin-left: 120px;
+    margin-top: 5px;
+}
+
+
+.toggle:checked ~ .extra {
+    display: flex;
+}
+
+/*EMPLOYEE SCHEDULE VIEW*/
+/* Unavailable = серый */
+.unavailable {
+    background-color: #eee;
+}
+
+/* Shift = синий */
+.shift {
+    background-color: #3498db;
+    color: white;
+    font-weight: bold;
+}
+
+.legend {
+    margin-top: 20px;
+}
+
+.box {
+    display: inline-block;
+    width: 15px;
+    height: 15px;
+    margin: 0 5px;
+}
+
+.view-switch {
+    padding: 8px;
+    margin-left: 10px;
+}
+
+/*SIGN UP INDEX PAGE*/
+.auth-body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background: #eef2f7;
+}
+
+/* Layout */
+.auth-container {
+    display: flex;
+    height: 100vh;
+}
+
+/* LEFT */
+.auth-left {
+    width: 50%;
+    background: linear-gradient(135deg, #2c3e50, #34495e);
+    color: white;
+    padding: 60px;
+}
+
+.auth-left h1 {
+    margin-bottom: 20px;
+}
+
+/* RIGHT */
+.auth-right {
+    width: 50%;
+    background: white;
+    padding: 40px;
+    display: flex;
+    flex-direction: column;
+}
+
+/* Switch Sign Up/Sign In tabs */
+.auth-tabs input[type="radio"] {
+    position: absolute;
+    opacity: 0;
+    pointer-events: none;
+}
+
+.auth-switch {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
+.auth-switch input {
+    display: none;
+}
+
+.auth-switch label {
+    padding: 10px 15px;
+    background: #ddd;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+.auth-switch label:hover {
+    background: #ccc;
+}
+
+/* Active tab */
+#managerSignup:checked ~ .auth-switch label[for="managerSignup"],
+#managerLogin:checked ~ .auth-switch label[for="managerLogin"],
+#employeeLogin:checked ~ .auth-switch label[for="employeeLogin"] {
+    background: #3498db;
+    color: white;
+}
+
+/* Forms */
+.form {
+    display: none;
+    flex-direction: column;
+}
+
+.form input {
+    padding: 10px;
+    margin: 10px 0;
+}
+
+/* Show forms */
+#managerSignup:checked ~ .manager-signup {
+    display: flex;
+}
+
+#managerLogin:checked ~ .manager-login {
+    display: flex;
+}
+
+#employeeLogin:checked ~ .employee-login {
+    display: flex;
+}
+
+.auth-btn {
+    background: #3498db;
+    color: white;
+    padding: 10px;
+    text-align: center;
+    text-decoration: none;
+    margin-top: 10px;
+}
+
+/*PROFILE SETUP*/
+.info-box {
+    background: #eef6ff;
+    padding: 10px;
+    margin: 10px 0;
+    border-left: 4px solid #3498db;
+    font-size: 14px;
+}
+
+.setup-buttons {
+    display: flex;
+    justify-content: space-between;
+}
+
+.cancel-btn {
+    background: #ccc;
+    padding: 10px;
+    text-decoration: none;
+}
+.setup-form {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+/*TEAM & ADD TEAM MEMBER*/
+
+.team-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+.team-table th,
+.team-table td {
+    border: 1px solid #ccc;
+    padding: 10px;
+    text-align: left;
+}
+
+.topbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.card {
+    background: white;
+    padding: 20px;
+    margin: 20px 0;
+    border-radius: 10px;
+    border: 1px solid #ddd;
+}
+
+.day-row {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin: 10px 0;
+}
+
+.card input {
+    padding: 8px;
+    margin: 5px 0;
+}
+
+.save-section {
+    margin-top: 20px;
+}

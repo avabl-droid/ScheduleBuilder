@@ -1,0 +1,66 @@
+<!--MANAGER SIGN UP default page | log in-->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Scheduler - Sign Up</title>
+    <link rel="stylesheet" href="scheduleStyles.css">
+</head>
+
+<body class="auth-body">
+
+<div class="auth-container">
+
+    <!-- left: Welcome + descriptopn -->
+    <div class="auth-left">
+        <h1>Shift Scheduler</h1>
+        <h2>Manage Your Team Efficiently</h2>
+        <p>Plan shifts, manage availability, and avoid conflicts.</p>
+    </div>
+
+    <!-- RIGHT SIDE: SIGN UP/IN forms -->
+    <div class="auth-tabs">
+
+        <!-- select -->
+        <input type="radio" name="tab" id="managerSignup" checked>
+        <input type="radio" name="tab" id="managerLogin">
+        <input type="radio" name="tab" id="employeeLogin">
+
+        <div class="auth-switch">
+            <label for="managerSignup">Sign Up</label>
+            <label for="managerLogin">Manager Login</label>
+            <label for="employeeLogin">Employee Login</label>
+        </div>
+
+        <!-- FORMS -->
+
+        <div class="form manager-signup">
+            <h2>Create Manager Account</h2>
+            <input type="email" placeholder="Email">
+            <input type="password" placeholder="Password">
+            <input type="password" placeholder="Confirm Password">
+            <a href="profileSetup.html" class="auth-btn">Sign Up</a>
+        </div>
+
+        <div class="form manager-login">
+            <h2>Manager Login</h2>
+            <input type="email" placeholder="Email">
+            <input type="password" placeholder="Password">
+            <a href="mainSchedule.html" class="auth-btn">Login</a>
+        </div>
+
+        <div class="form employee-login">
+            <h2>Employee Login</h2>
+            <input type="email" placeholder="Email">
+            <input type="password" placeholder="Password">
+            <a href="" class="auth-btn">Login</a>
+        </div>
+
+    </div>
+</div>
+
+</div>
+
+</body>
+</html>

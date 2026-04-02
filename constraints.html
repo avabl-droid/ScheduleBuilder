@@ -1,0 +1,91 @@
+<!--SCHEDULING CONSTRAINS: business hirs, maximum hours, -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>SCheduling Constraints</title>
+    <link rel="stylesheet" href="scheduleStyles.css">
+</head>
+
+<body>
+
+<div class="container">
+
+    <aside class="sidebar">
+        <h2>Scheduler</h2>
+        <nav>
+            <a href="mainSchedule.html">Schedule</a>
+            <a href="availability.html">My Availability</a>
+            <a href="team.html">Team</a>
+            <a href="constraints.html">Settings</a>
+            <a href="login.html">Logout</a>
+        </nav>
+    </aside>
+
+    <main class="main">
+
+        <h2>Business Constraints</h2>
+
+        <!-- OPERATING HOURS -->
+        <div class="card">
+            <h3>Operating Hours</h3>
+
+            <div class="day-row">
+                <span>Monday</span>
+                <input type="time"> to <input type="time">
+            </div>
+
+            <div class="day-row">
+                <span>Tuesday</span>
+                <input type="time"> to <input type="time">
+            </div>
+
+            <div class="day-row">
+                <span>Wednesday</span>
+                <input type="time"> to <input type="time">
+            </div>
+
+            <div class="day-row">
+                <span>Thursday</span>
+                <input type="time"> to <input type="time">
+            </div>
+
+            <div class="day-row">
+                <span>Friday</span>
+                <input type="time"> to <input type="time">
+            </div>
+        </div>
+
+        <!-- HOURS RULES -->
+        <div class="card">
+            <h3>Work Hour Limits</h3>
+
+            <label>Minimum hours per week</label>
+            <input type="number" placeholder="e.g. 10"><br>
+
+            <label>Maximum hours per week</label>
+            <input type="number" placeholder="e.g. 40"><br>
+
+            <label>Maximum hours per day</label>
+            <input type="number" placeholder="e.g. 8"><br>
+        </div>
+
+        <!-- Lunch break?? -->
+        <div class="card">
+            <h3>Lunch Break??</h3>
+
+            <label>Minimum break between shifts (hours)</label>
+            <input type="number" placeholder="e.g. 12">
+        </div>
+
+
+        <div class="save-section">
+            <a href="#" class="auth-btn">Save Settings</a>
+        </div>
+
+    </main>
+</div>
+
+</body>
+</html>
