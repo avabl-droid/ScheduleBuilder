@@ -1,5 +1,6 @@
 const express = require('express');
 const cors = require('cors');
+const path = require('path');
 const { initializeDatabase } = require('./db/init');
 const { attachSession } = require('./middleware/auth');
 
@@ -12,6 +13,30 @@ app.use(
   })
 );
 app.use(attachSession);
+
+const frontendFiles = [
+  'indexSignUp.html',
+  'login.html',
+  'profileSetupManager.html',
+  'team.html',
+  'availability.html',
+  'constraints.html',
+  'mainSchedule.html',
+  'employeeSchedule.html',
+  'main.html',
+  'scheduleStyles.css',
+  'frontend.js',
+];
+
+app.get('/', (_req, res) => {
+  res.sendFile(path.join(__dirname, 'indexSignUp.html'));
+});
+
+frontendFiles.forEach((file) => {
+  app.get(`/${file}`, (_req, res) => {
+    res.sendFile(path.join(__dirname, file));
+  });
+});
 
 // Routes
 app.use('/api/schedule', require('./routes/scheduleRoutes'));

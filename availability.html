@@ -6,152 +6,41 @@
     <link rel="stylesheet" href="scheduleStyles.css">
 </head>
 
-<body>
-
+<body data-page="availability">
 <div class="container">
-
     <aside class="sidebar">
         <h2>Scheduler</h2>
         <nav>
-            <a href="mainSchedule.html">Schedule</a>
-            <a href="availability.html">My Availability</a>
-            <a href="#">Team</a>
-            <a href="#">Notifications</a>
-            <a href="login.html">Logout</a>
+            <a href="/mainSchedule.html" data-manager-only>Team Schedule</a>
+            <a href="/employeeSchedule.html" data-employee-only>My Schedule</a>
+            <a href="/availability.html">Availability</a>
+            <a href="/team.html">Team</a>
+            <a href="/constraints.html" data-manager-only>Constraints</a>
+            <a href="#" data-action="logout">Logout</a>
         </nav>
     </aside>
 
     <main class="main">
-        <h2>My Availability</h2>
-
-        <!-- Availability Display -->
-        <div class="availability-list">
-            <div>Monday: 8:00 - 16:00</div>
-            <div>Tuesday: 12:00 - 18:00</div>
-            <div>Wednesday: 9:00 - 17:00</div>
-            <div>Thursday: 9:00 - 17:00</div>
-            <div>Friday: 10:00 - 15:00</div>
-            <div>Saturday: 10:00 15:00</div>
-            <div>Sunday: 10:00 15:00</div>
+        <div class="page-header">
+            <div>
+                <p class="eyebrow">Availability</p>
+                <h1>Weekly Availability</h1>
+            </div>
+            <div class="user-chip">
+                <strong data-user-name></strong>
+                <span data-user-role></span>
+            </div>
         </div>
 
-
-        <a href="#editAvailability" class="add-btn">Change Availability</a>
-
+        <section class="card">
+            <form id="availabilityForm" class="stack-lg">
+                <div id="availabilityEditor" class="stack"></div>
+                <button type="submit" class="primary-btn">Save Availability</button>
+                <p id="availabilityStatus" class="status-message" hidden></p>
+            </form>
+        </section>
     </main>
 </div>
-
-<!-- MODAL -->
-<div id="editAvailability" class="modal">
-    <div class="modal-content wide">
-
-        <a href="#" class="close">&times;</a>
-
-        <h2>Please enter your new availability</h2>
-
-        <form class="availability-form">
-
-            <!-- MONDAY -->
-            <div class="day-row">
-                <div class="day-label">Monday</div>
-
-                <input type="checkbox" id="mon-toggle" class="toggle">
-
-                <!-- main avail input -->
-                <div class="time-group">
-                    From: <input type="time">
-                    To: <input type="time">
-
-                    <label for="tue-toggle" class="plus">+</label>
-                </div>
-
-                <!-- additional aavailability -->
-                <div class="time-group extra">
-                    From: <input type="time">
-                    To: <input type="time">
-                </div>
-            </div>
-
-            <!-- TUESDAY -->
-            <div class="day-row">
-                <div class="day-label">Tuesday</div>
-
-                <input type="checkbox" id="tue-toggle" class="toggle">
-
-                <div class="time-group">
-                    From: <input type="time">
-                    To: <input type="time">
-
-                    <label for="tue-toggle" class="plus">+</label>
-                </div>
-
-                <div class="time-group extra">
-                    From: <input type="time">
-                    To: <input type="time">
-                </div>
-            </div>
-
-            <!-- WEDNESDAY -->
-            <div class="day-row">
-                <div class="day-label">Wednesday</div>
-
-                <input type="checkbox" id="wed-toggle" class="toggle">
-
-                <div class="time-group">
-                    From: <input type="time">
-                    To: <input type="time">
-
-                    <label for="tue-toggle" class="plus">+</label>
-                </div>
-
-                <div class="time-group extra">
-                    From: <input type="time">
-                    To: <input type="time">
-                </div>
-            </div>
-
-            <!-- THURSDAY -->
-            <div class="day-row">
-                <div class="day-label">Thursday</div>
-
-                <input type="checkbox" id="thu-toggle" class="toggle">
-
-                <div class="time-group">
-                    From: <input type="time">
-                    To: <input type="time">
-
-                    <label for="tue-toggle" class="plus">+</label>
-                </div>
-
-                <div class="time-group extra">
-                    From: <input type="time">
-                    To: <input type="time">
-                </div>
-            </div>
-
-            <!-- FRIDAY -->
-            <div class="day-row">
-                <div class="day-label">Friday</div>
-
-                <input type="checkbox" id="fri-toggle" class="toggle">
-
-                <div class="time-group">
-                    From: <input type="time">
-                    To: <input type="time">
-
-                    <label for="tue-toggle" class="plus">+</label>
-                </div>
-
-                <div class="time-group extra">
-                    From: <input type="time">
-                    To: <input type="time">
-                </div>
-            </div>
-
-        </form>
-
-    </div>
-</div>
-
+<script src="/frontend.js"></script>
 </body>
 </html>

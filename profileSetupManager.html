@@ -1,36 +1,27 @@
-<!--AFTER MANAGER CREATES AN ACCOUNT-->
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Profile Setup</title>
+    <title>Complete Account Setup</title>
     <link rel="stylesheet" href="scheduleStyles.css">
 </head>
 
-<body>
+<body class="auth-body" data-page="completeSetup">
+<div class="login-box wide-box">
+    <h2>Complete Your Account Setup</h2>
+    <p>Choose your final username and password, then add your phone number and backup email.</p>
 
-
-<div class="login-box">
-    <h2>Complete Your Profile</h2>
-    <p>Set up security details for your account</p>
-
-    <form>
-            <label>Phone Number (2FA)</label>
-            <input type="tel" placeholder="+1 234 567 8900">
-
-            <label>Recovery Email</label>
-            <input type="email" placeholder="backup@email.com">
-
-            <div class="info-box">
-               <p> ✔ A team will be automatically created for you</p>
-               <p> ✔ You can start adding employees after setup</p>
-            </div>
-
-        <!-- переход на вторую страницу -->
-        <a href="mainSchedule.html" class="login-btn">Save & Continue</a>
+    <form id="completeSetupForm" class="stack">
+        <input id="completeTemporaryPassword" type="password" placeholder="Temporary password" required>
+        <input id="completeUsername" type="text" placeholder="New username" required>
+        <input id="completePhone" type="tel" placeholder="Phone number" required>
+        <input id="completeSecondaryEmail" type="email" placeholder="Second email address" required>
+        <input id="completeNewPassword" type="password" placeholder="New password" required>
+        <input id="completeConfirmPassword" type="password" placeholder="Confirm new password" required>
+        <button type="submit" class="primary-btn">Finish Setup</button>
+        <p id="completeSetupStatus" class="status-message" hidden></p>
     </form>
 </div>
-
-
+<script src="/frontend.js"></script>
 </body>
 </html>

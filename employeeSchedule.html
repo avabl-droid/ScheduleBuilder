@@ -6,207 +6,60 @@
     <link rel="stylesheet" href="scheduleStyles.css">
 </head>
 
-<body>
-
+<body data-page="employeeSchedule">
 <div class="container">
-
     <aside class="sidebar">
-        <h2>Employee</h2>
+        <h2>Scheduler</h2>
         <nav>
-            <a href="employeeSchedule.html">My Schedule</a>
-            <a href="availability.html">My Availability</a>
-            <a href="mainSchedule.html">Full Schedule</a>
-            <a href="login.html">Logout</a>
+            <a href="/employeeSchedule.html">My Schedule</a>
+            <a href="/availability.html">Availability</a>
+            <a href="/team.html">Team</a>
+            <a href="#" data-action="logout">Logout</a>
         </nav>
     </aside>
 
     <main class="main">
+        <div class="page-header">
+            <div>
+                <p class="eyebrow">Schedule</p>
+                <h1>My Weekly Schedule</h1>
+            </div>
+            <div class="user-chip">
+                <strong data-user-name></strong>
+                <span data-user-role></span>
+            </div>
+        </div>
 
         <div class="topbar">
-            <button>← Prev</button>
-            <h2>Week: March 30 - April 5</h2>
-            <button>Next →</button>
-
-            <select>
-                <option>My Schedule</option>
-                <option>Full Schedule</option>
-            </select>
+            <button id="employeePreviousWeekButton" class="secondary-btn">Previous Week</button>
+            <h2 id="employeeWeekLabel"></h2>
+            <button id="employeeNextWeekButton" class="secondary-btn">Next Week</button>
+            <div class="summary-pill">Total: <span id="employeeWeeklyHours">0 hours</span></div>
         </div>
 
+        <p id="employeeScheduleStatus" class="status-message" hidden></p>
 
-        <h2>My Schedule</h2>
-
-        <!-- SCHEDULE - Table -->
-            <table class="schedule">
-                <thead class="schedule-weekdays-head">
+        <section class="card">
+            <h2>Shift List</h2>
+            <table class="data-table">
+                <thead>
                     <tr>
+                        <th>Date</th>
                         <th>Time</th>
-                        <th>Mon</th>
-                        <th>Tue</th>
-                        <th>Wed</th>
-                        <th>Thu</th>
-                        <th>Fri</th>
-                        <th>Sat</th>
-                        <th>Sun</th>
+                        <th>Employee</th>
+                        <th>Role</th>
                     </tr>
                 </thead>
-
-                <tbody class = schedule-grid>
-                    <tr>
-                        <td class="time">7:00</td>
-                        <td></td>
-                        <td></td>
-                        <td></td> 
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                    </tr>
-
-                    <tr>
-                        <td class="time">8:00</td>
-                        <td></td>
-                        <td></td>
-                        <td></td> 
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                    </tr>
-
-                    <tr>
-                        <td class="time">9:00</td>
-                        <td class="unavailable"></td>
-                        <td class="shift">Work</td>
-                        <td></td>
-                        <td class="unavailable"></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                    </tr>
-
-                    <tr>
-                        <td class="time">10:00</td>
-                        <td class="unavailable"></td>
-                        <td class="shift">Work</td>
-                        <td></td>
-                        <td class="unavailable"></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                    </tr>
-
-                    <tr>
-                        <td class="time">11:00</td>
-                        <td class="unavailable"></td>
-                        <td class="shift">Work</td>
-                        <td></td>
-                        <td class="unavailable"></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                    </tr>
-
-                    <tr>
-                        <td class="time">12:00</td>
-                        <td></td>
-                        <td class="shift">Work</td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>   
-                        <td></td>            
-                    </tr>
-
-                    <tr>
-                        <td class="time">13:00</td>
-                        <td></td>
-                        <td class="shift">Work</td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                    </tr>
-
-                    <tr>
-                        <td class="time">14:00</td>
-                        <td></td>
-                        <td class="shift">Work</td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                    </tr>
-
-                    <tr>
-                        <td class="time">15:00</td>
-                        <td></td>
-                        <td class="shift">Work</td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                    </tr>
-
-                    <tr>
-                        <td class="time">16:00</td>
-                        <td></td>
-                        <td></td> 
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                    </tr>
-
-                    <tr>
-                        <td class="time">17:00</td>
-                        <td></td>
-                        <td></td> 
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                    </tr>
-
-                    <tr>
-                        <td class="time">18:00</td>
-                        <td></td>
-                        <td></td> 
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                    </tr>
-
-                    <tr>
-                        <td class="time">18:00</td>
-                        <td></td>
-                        <td></td> 
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                    </tr>
-
-                </tbody>
+                <tbody id="employeeScheduleBody"></tbody>
             </table>
+        </section>
 
-
-        <!-- Legend -->
-        <div class="legend">
-            <span class="box shift"></span> Assigned Shift
-            <span class="box unavailable"></span> Unavailable
-        </div>
-
+        <section class="card">
+            <h2>Week at a Glance</h2>
+            <div id="employeeWeekCards" class="day-card-grid"></div>
+        </section>
     </main>
 </div>
-
+<script src="/frontend.js"></script>
 </body>
 </html>

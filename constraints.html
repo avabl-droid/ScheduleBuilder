@@ -1,91 +1,84 @@
-<!--SCHEDULING CONSTRAINS: business hirs, maximum hours, -->
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>SCheduling Constraints</title>
+    <title>Scheduling Constraints</title>
     <link rel="stylesheet" href="scheduleStyles.css">
 </head>
 
-<body>
-
+<body data-page="constraints">
 <div class="container">
-
     <aside class="sidebar">
         <h2>Scheduler</h2>
         <nav>
-            <a href="mainSchedule.html">Schedule</a>
-            <a href="availability.html">My Availability</a>
-            <a href="team.html">Team</a>
-            <a href="constraints.html">Settings</a>
-            <a href="login.html">Logout</a>
+            <a href="/mainSchedule.html">Team Schedule</a>
+            <a href="/availability.html">Availability</a>
+            <a href="/team.html">Team</a>
+            <a href="/constraints.html">Constraints</a>
+            <a href="#" data-action="logout">Logout</a>
         </nav>
     </aside>
 
     <main class="main">
-
-        <h2>Business Constraints</h2>
-
-        <!-- OPERATING HOURS -->
-        <div class="card">
-            <h3>Operating Hours</h3>
-
-            <div class="day-row">
-                <span>Monday</span>
-                <input type="time"> to <input type="time">
+        <div class="page-header">
+            <div>
+                <p class="eyebrow">Constraints</p>
+                <h1>Scheduling Rules</h1>
             </div>
-
-            <div class="day-row">
-                <span>Tuesday</span>
-                <input type="time"> to <input type="time">
-            </div>
-
-            <div class="day-row">
-                <span>Wednesday</span>
-                <input type="time"> to <input type="time">
-            </div>
-
-            <div class="day-row">
-                <span>Thursday</span>
-                <input type="time"> to <input type="time">
-            </div>
-
-            <div class="day-row">
-                <span>Friday</span>
-                <input type="time"> to <input type="time">
+            <div class="user-chip">
+                <strong data-user-name></strong>
+                <span data-user-role></span>
             </div>
         </div>
 
-        <!-- HOURS RULES -->
-        <div class="card">
-            <h3>Work Hour Limits</h3>
+        <form id="constraintsForm" class="stack-lg">
+            <section class="card">
+                <h2>Hour Limits</h2>
+                <div class="form-grid">
+                    <label>
+                        Window length
+                        <select id="hoursWindowDays">
+                            <option value="7">7 days</option>
+                            <option value="14">14 days</option>
+                        </select>
+                    </label>
+                    <label>
+                        Min hours per window
+                        <input id="minHoursPerWindow" type="number" min="0" step="0.5">
+                    </label>
+                    <label>
+                        Max hours per window
+                        <input id="maxHoursPerWindow" type="number" min="0" step="0.5">
+                    </label>
+                    <label>
+                        Min staff per hour
+                        <input id="minStaffPerHour" type="number" min="0" step="1">
+                    </label>
+                    <label>
+                        Max staff per hour
+                        <input id="maxStaffPerHour" type="number" min="0" step="1">
+                    </label>
+                </div>
+            </section>
 
-            <label>Minimum hours per week</label>
-            <input type="number" placeholder="e.g. 10"><br>
+            <section class="card">
+                <h2>Business Hours</h2>
+                <div id="businessHoursGrid" class="stack"></div>
+            </section>
 
-            <label>Maximum hours per week</label>
-            <input type="number" placeholder="e.g. 40"><br>
+            <section class="card">
+                <div class="section-header">
+                    <h2>Role Requirements</h2>
+                    <button type="button" id="addRoleRequirementButton" class="secondary-btn">Add Requirement</button>
+                </div>
+                <div id="roleRequirementsList" class="stack"></div>
+            </section>
 
-            <label>Maximum hours per day</label>
-            <input type="number" placeholder="e.g. 8"><br>
-        </div>
-
-        <!-- Lunch break?? -->
-        <div class="card">
-            <h3>Lunch Break??</h3>
-
-            <label>Minimum break between shifts (hours)</label>
-            <input type="number" placeholder="e.g. 12">
-        </div>
-
-
-        <div class="save-section">
-            <a href="#" class="auth-btn">Save Settings</a>
-        </div>
-
+            <button type="submit" class="primary-btn">Save Constraints</button>
+            <p id="constraintsStatus" class="status-message" hidden></p>
+        </form>
     </main>
 </div>
-
+<script src="/frontend.js"></script>
 </body>
 </html>

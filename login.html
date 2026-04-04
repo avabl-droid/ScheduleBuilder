@@ -6,22 +6,17 @@
     <link rel="stylesheet" href="scheduleStyles.css">
 </head>
 
-<body>
-
+<body class="auth-body" data-page="login">
 <div class="login-box">
     <h2>Login</h2>
-
-    <form>
-        <label>Email:</label>
-        <input type="email" placeholder="Enter email">
-
-        <label>Password:</label>
-        <input type="password" placeholder="Enter password">
-
-        <!-- переход на вторую страницу -->
-        <a href="mainSchedule.html" class="login-btn">Login</a>
+    <form id="loginForm" class="stack">
+        <input name="identifier" type="text" placeholder="Email or username" required>
+        <input name="password" type="password" placeholder="Password" required>
+        <button type="submit" class="primary-btn">Login</button>
+        <p id="loginStatus" class="status-message" hidden></p>
     </form>
+    <p class="muted"><a href="/indexSignUp.html">Need sign up options instead?</a></p>
 </div>
-
+<script src="/frontend.js"></script>
 </body>
 </html>

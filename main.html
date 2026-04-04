@@ -2,123 +2,14 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Shift Scheduler</title>
+    <title>ScheduleBuilder</title>
     <link rel="stylesheet" href="scheduleStyles.css">
 </head>
-<body>
-
-<div class="container">
-
-    <aside class="sidebar">
-        <h2>Scheduler</h2>
-        <nav>
-            <a href="#">Schedule</a>
-            <a href="availability.html">My Availability</a>
-            <a href="#">Team</a>
-            <a href="#">Notifications</a>
-        </nav>
-    </aside>
-
-    <!-- Main Content -->
-    <main class="main">
-
-        <div class="topbar">
-            <button>← Prev</button>
-            <h2>Week: March 30 - April 5</h2>
-            <button>Next →</button>
-
-            <button class="add-btn">+ Add Shift</button>
-        </div>
-
-        <!-- SCHEDULE - Table -->
-        <table class="schedule">
-            <thead>
-                <tr>
-                    <th>Time</th>
-                    <th>Mon</th>
-                    <th>Tue</th>
-                    <th>Wed</th>
-                    <th>Thu</th>
-                    <th>Fri</th>
-                    <th>Sat</th>
-                    <th>Sun</th>
-                </tr>
-            </thead>
-
-            <tbody>
-                <tr>
-                    <td>9:00</td>
-                    <td class="shift">Alex</td>
-                    <td></td>
-                    <td class="shift">Maria</td>
-                    <td></td>
-                    <td></td>
-                    <td class="shift">John</td>
-                    <td></td>
-                </tr>
-
-                <tr>
-                    <td>12:00</td>
-                    <td></td>
-                    <td class="shift">Olga</td>
-                    <td></td>
-                    <td class="shift">Alex</td>
-                    <td></td>
-                    <td></td>
-                    <td class="shift">Maria</td>
-                </tr>
-
-                <tr>
-                    <td>15:00</td>
-                    <td class="shift">John</td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td class="shift">Olga</td>
-                    <td></td>
-                    <td></td>
-                </tr>
-            </tbody>
-        </table>
-
-    </main>
+<body data-page="redirectMain">
+<div class="login-box">
+    <h2>Loading your dashboard...</h2>
+    <p class="muted">If you are not redirected automatically, <a href="/indexSignUp.html">click here</a>.</p>
 </div>
-<!--ADD A SHIFT-->
-    <div id="shiftModal" class="modal">
-    <div class="modal-content">
-        <h2>Add Shift</h2>
-
-        <form>
-            <label>Employee:</label>
-            <select>
-                <option>Name1</option>
-                <option>Name2</option>
-                <option>Name3</option>
-                <option>Name4</option>
-            </select>
-
-            <label>Date:</label>
-            <input type="date">
-
-            <label>Start Time:</label>
-            <input type="time">
-
-            <label>End Time:</label>
-            <input type="time">
-
-            <label class="checkbox">
-                <input type="checkbox"> Recurring weekly
-            </label>
-
-            <div class="modal-buttons">
-                <button type="submit">Save</button>
-                <button type="button" onclick="closeModal()">Cancel</button>
-            </div>
-        </form>
-    </div>
-</div>
-
-
-
+<script src="/frontend.js"></script>
 </body>
 </html>

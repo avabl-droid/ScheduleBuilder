@@ -1,5 +1,3 @@
-<!--MANAGER SIGN UP default page | log in-->
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -8,59 +6,58 @@
     <link rel="stylesheet" href="scheduleStyles.css">
 </head>
 
-<body class="auth-body">
+<body class="auth-body" data-page="auth">
+<div class="auth-layout">
+    <section class="auth-hero">
+        <p class="eyebrow">ScheduleBuilder</p>
+        <h1>Build schedules your team can actually use.</h1>
+        <p>
+            Managers can create teams, define constraints, and publish weekly schedules.
+            Team members can finish setup, manage availability, and view their own shifts.
+        </p>
+    </section>
 
-<div class="auth-container">
-
-    <!-- left: Welcome + descriptopn -->
-    <div class="auth-left">
-        <h1>Shift Scheduler</h1>
-        <h2>Manage Your Team Efficiently</h2>
-        <p>Plan shifts, manage availability, and avoid conflicts.</p>
-    </div>
-
-    <!-- RIGHT SIDE: SIGN UP/IN forms -->
-    <div class="auth-tabs">
-
-        <!-- select -->
-        <input type="radio" name="tab" id="managerSignup" checked>
-        <input type="radio" name="tab" id="managerLogin">
-        <input type="radio" name="tab" id="employeeLogin">
-
-        <div class="auth-switch">
-            <label for="managerSignup">Sign Up</label>
-            <label for="managerLogin">Manager Login</label>
-            <label for="employeeLogin">Employee Login</label>
-        </div>
-
-        <!-- FORMS -->
-
-        <div class="form manager-signup">
+    <section class="auth-panel">
+        <div class="auth-card">
             <h2>Create Manager Account</h2>
-            <input type="email" placeholder="Email">
-            <input type="password" placeholder="Password">
-            <input type="password" placeholder="Confirm Password">
-            <a href="profileSetup.html" class="auth-btn">Sign Up</a>
+            <form id="managerSignupForm" class="stack">
+                <input id="signupFullName" type="text" placeholder="Full name" required>
+                <input id="signupPrimaryEmail" type="email" placeholder="Work email" required>
+                <input id="signupSecondaryEmail" type="email" placeholder="Second email" required>
+                <input id="signupPhoneNumber" type="tel" placeholder="Phone number" required>
+                <input id="signupUsername" type="text" placeholder="Username (optional)">
+                <input id="signupPassword" type="password" placeholder="Password" required>
+                <input id="signupPasswordConfirm" type="password" placeholder="Confirm password" required>
+                <button type="submit" class="primary-btn">Create Account</button>
+                <p id="managerSignupStatus" class="status-message" hidden></p>
+            </form>
         </div>
 
-        <div class="form manager-login">
+        <div class="auth-card">
             <h2>Manager Login</h2>
-            <input type="email" placeholder="Email">
-            <input type="password" placeholder="Password">
-            <a href="mainSchedule.html" class="auth-btn">Login</a>
+            <form id="managerLoginForm" class="stack">
+                <input name="identifier" type="text" placeholder="Email or username" required>
+                <input name="password" type="password" placeholder="Password" required>
+                <button type="submit" class="primary-btn">Login</button>
+                <p id="managerLoginStatus" class="status-message" hidden></p>
+            </form>
         </div>
 
-        <div class="form employee-login">
-            <h2>Employee Login</h2>
-            <input type="email" placeholder="Email">
-            <input type="password" placeholder="Password">
-            <a href="" class="auth-btn">Login</a>
+        <div class="auth-card">
+            <h2>Team Member Login</h2>
+            <form id="employeeLoginForm" class="stack">
+                <input name="identifier" type="text" placeholder="Email or username" required>
+                <input name="password" type="password" placeholder="Password" required>
+                <button type="submit" class="primary-btn">Login</button>
+                <p id="employeeLoginStatus" class="status-message" hidden></p>
+            </form>
+            <p class="muted">
+                First time signing in? Use the temporary credentials your manager shared, then
+                finish setup on the account setup page.
+            </p>
         </div>
-
-    </div>
+    </section>
 </div>
-
-</div>
-
+<script src="/frontend.js"></script>
 </body>
 </html>

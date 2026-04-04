@@ -5,87 +5,78 @@
     <title>Team</title>
     <link rel="stylesheet" href="scheduleStyles.css">
 </head>
-<body>
-
+<body data-page="team">
     <div class="container">
-
         <aside class="sidebar">
             <h2>Scheduler</h2>
             <nav>
-                <a href="mainSchedule.html">Schedule</a>
-                <a href="availability.html">My Availability</a>
-                <a href="#">Team</a>
-                <a href="#">Notifications</a>
-                <a href="login.html">Logout</a>
+                <a href="/mainSchedule.html" data-manager-only>Team Schedule</a>
+                <a href="/employeeSchedule.html" data-employee-only>My Schedule</a>
+                <a href="/availability.html">Availability</a>
+                <a href="/team.html">Team</a>
+                <a href="/constraints.html" data-manager-only>Constraints</a>
+                <a href="#" data-action="logout">Logout</a>
             </nav>
         </aside>
 
         <main class="main">
-              <div class="topbar">
-            <h2>My Team</h2>
+            <div class="page-header">
+                <div>
+                    <p class="eyebrow">Team</p>
+                    <h1 id="teamPageTitle">Your Team</h1>
+                </div>
+                <div class="user-chip">
+                    <strong data-user-name></strong>
+                    <span data-user-role></span>
+                </div>
+            </div>
 
-            <!-- Add button -->
-            <a href="#addMember" class="add-btn">+ Add Member</a>
-        </div>
+            <p data-global-status class="status-message" hidden></p>
 
-        <!-- Team List -->
-        <table class="team-table">
-            <thead>
-                <tr>
-                    <th>Name</th>
-                    <th>Email</th>
-                    <th>Role</th>
-                </tr>
-            </thead>
+            <section id="teamCreateSection" class="card" hidden>
+                <h2>Create Your Team</h2>
+                <form id="teamCreateForm" class="stack">
+                    <input id="teamNameInput" type="text" placeholder="Team name" required>
+                    <button type="submit" class="primary-btn">Create Team</button>
+                    <p id="teamCreateStatus" class="status-message" hidden></p>
+                </form>
+            </section>
 
-            <tbody>
-                <tr>
-                    <td>Alex Johnson</td>
-                    <td>alex@company.com</td>
-                    <td>Employee</td>
-                </tr>
+            <section id="noTeamSection" class="card" hidden>
+                <h2>No Team Assigned</h2>
+                <p>Your account does not belong to a team yet. Ask your manager to invite you.</p>
+            </section>
 
-                <tr>
-                    <td>Maria Lopez</td>
-                    <td>maria@company.com</td>
-                    <td>Employee</td>
-                </tr>
+            <section id="teamDetailsSection" class="stack-lg" hidden>
+                <section class="card">
+                    <h2>Team Members</h2>
+                    <table class="data-table">
+                        <thead>
+                            <tr>
+                                <th>Name</th>
+                                <th>Email</th>
+                                <th>Role</th>
+                                <th>Type</th>
+                            </tr>
+                        </thead>
+                        <tbody id="teamMembersBody"></tbody>
+                    </table>
+                </section>
 
-            </tbody>
-        </table>
-
+                <section id="invitePanel" class="card" data-manager-only>
+                    <h2>Add Team Member</h2>
+                    <form id="teamInviteForm" class="stack">
+                        <input id="inviteFullName" type="text" placeholder="Full name" required>
+                        <input id="inviteEmail" type="email" placeholder="Work email" required>
+                        <input id="inviteRole" type="text" placeholder="Employment role" required>
+                        <button type="submit" class="primary-btn">Create Team Member</button>
+                        <p id="teamInviteStatus" class="status-message" hidden></p>
+                    </form>
+                    <div id="inviteResults" class="stack"></div>
+                </section>
+            </section>
         </main>
     </div>
-
-    <!-- ADD MEMBER MODAL -->
-    <div id="addMember" class="modal">
-        <div class="modal-content">
-
-            <a href="#" class="close">&times;</a>
-
-            <h2>Add Team Member</h2>
-
-            <form>
-                <label>Employee Corporate Email</label>
-                <input type="email" placeholder="employee@company.com">
-
-                <label>Role (optional*)</label>
-                <input type="text" placeholder="e.g., Administrator">
-
-
-                <div class="info-box">
-                    <p> ✔ The employee will receive an invitation email</p>
-                    <p> ✔ They will access their account using this email</p>
-                </div>
-
-                <div class="modal-buttons">
-                    <button type="submit">Send Invite</button>
-                    <!--<a href="#" class="cancel-btn">Cancel</a>-->
-                </div>
-            </form>
-
-        </div>
-    </div>
-    
+    <script src="/frontend.js"></script>
 </body>
 </html>
