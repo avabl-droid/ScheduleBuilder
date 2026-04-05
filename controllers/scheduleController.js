@@ -358,6 +358,25 @@ exports.updateShift = async (req, res) => {
       removedShift: existingShift,
     });
 
+    /*const allIssues = await evaluateShiftMutation({
+      teamId: existingShift.team_id,
+      candidateShift: {
+        id: shiftId,
+        userId: nextUserId,
+        shiftDate: nextDate,
+        startTime: nextStartTime,
+        endTime: nextEndTime,
+        employmentRole: nextRole,
+      },
+      excludedShiftId: shiftId,
+      removedShift: existingShift,
+    });
+    const issues = allIssues.filter(
+      (issue) => issue.type === 'availability' || issue.type === 'constraints'
+    );
+    console.log("filtered update issues: ", issues); */
+
+
     await requireOverrideIfNeeded(issues, Number(managerUserId), overridePassword);
 
     await exec('BEGIN TRANSACTION');
@@ -443,6 +462,16 @@ exports.deleteShift = async (req, res) => {
       removedShift: existingShift,
       excludedShiftId: shiftId,
     });
+    //
+    /*
+    const allIssues = await evaluateShiftMutation({
+      teamId: existingShift.team_id,
+      removedShift: existingShift,
+      excludedShiftId: shiftId,
+    });
+    const issues = allIssues.filter(
+      (issue) => issue.type === 'availability' || issue.type === 'constraints'
+    );*/
 
     await requireOverrideIfNeeded(issues, Number(managerUserId), overridePassword);
 
@@ -549,26 +578,32 @@ exports.finalizeSchedule = async (req, res) => {
       throw badRequest('Authentication required.', 401);
     }
 
-    const { teamId, weekStartDate, managerPassword } = req.body;
+    const { teamId, weekStartDate, /*managerPassword,*/ overridePassword } = req.body;
     const managerUserId = req.auth.userId;
 
-    if (!teamId || !weekStartDate || !managerPassword) {
-      throw badRequest('teamId, weekStartDate, and managerPassword are required.');
+    if (!teamId || !weekStartDate /*|| !managerPassword*/) {
+      //throw badRequest('teamId, weekStartDate/*, and managerPassword are required.');
+      throw badRequest('teamId and weekStartDate are required.');
     }
 
     assertValidDate(weekStartDate);
     await ensureManagerForTeam(Number(teamId), Number(managerUserId));
-    await ensureValidManagerPassword(Number(managerUserId), managerPassword);
+    //await ensureValidManagerPassword(Number(managerUserId), managerPassword);
 
-    const issues = await evaluateWeekForFinalization(Number(teamId), weekStartDate);
+    const issues = [];
 
-    if (issues.length) {
-      return res.status(409).send({
-        issues,
-        message: 'The schedule cannot be finalized until these issues are resolved.',
-      });
+    if (!overridePassword) {
+      weekIssues = await evaluateWeekForFinalization(Number(teamId), weekStartDate);
+
+      /*if (issues.length) {
+        return res.status(409).send({
+          issues,
+          message: 'The schedule cannot be finalized until these issues are resolved.',
+        });
+      }*/
+      issues.push(...weekIssues);
+      await requireOverrideIfNeeded(issues, Number(managerUserId), overridePassword);      
     }
-
     const priorWeek = await get(
       `
         SELECT finalized_at

@@ -496,6 +496,7 @@ async function evaluateShiftMutation({
   candidateShift = null,
   excludedShiftId = null,
   removedShift = null,
+  checkWorkerNumber = null
 }) {
   const issues = [];
   const constraints = await getConstraints(teamId);
@@ -656,44 +657,48 @@ async function evaluateShiftMutation({
       });
     }
 
-    const dayHours = businessHoursByDay.get(dayOfWeek);
-    const dayRange = getScheduleRangeForDay(dayHours, dayShifts);
+    if (checkWorkerNumber) {
+      console.log("checking worker number for ", candidateShift);
+      const dayHours = businessHoursByDay.get(dayOfWeek);
+      const dayRange = getScheduleRangeForDay(dayHours, dayShifts);
 
-    if (
-      dayRange &&
-      (constraints.minStaffPerHour !== null ||
-        constraints.maxStaffPerHour !== null ||
-        constraints.roleRequirements?.length)
-    ) {
-      const slots = getHourSlots(dayRange.startTime, dayRange.endTime);
+      if (
+        dayRange &&
+        (constraints.minStaffPerHour !== null ||
+          constraints.maxStaffPerHour !== null ||
+          constraints.roleRequirements?.length)
+      ) {
+        const slots = getHourSlots(dayRange.startTime, dayRange.endTime);
 
-      for (const slot of slots) {
-        const staffCount = dayShifts.filter((shift) =>
-          rangesOverlap(shift.start_time, shift.end_time, slot.start, slot.end)
-        ).length;
+        for (const slot of slots) {
+          const staffCount = dayShifts.filter((shift) =>
+            rangesOverlap(shift.start_time, shift.end_time, slot.start, slot.end)
+          ).length;
 
-        if (
-          constraints.minStaffPerHour !== null &&
-          dayHours &&
-          dayHours.isOpen &&
-          staffCount < Number(constraints.minStaffPerHour)
-        ) {
-          issues.push({
-            type: 'min_staff',
-            message: `Only ${staffCount} employee(s) are scheduled between ${slot.start}-${slot.end} on ${date}, below the minimum of ${constraints.minStaffPerHour}.`,
-          });
+          if (
+            constraints.minStaffPerHour !== null &&
+            dayHours &&
+            dayHours.isOpen &&
+            staffCount < Number(constraints.minStaffPerHour)
+          ) {
+            issues.push({
+              type: 'min_staff',
+              message: `Only ${staffCount} employee(s) are scheduled between ${slot.start}-${slot.end} on ${date}, below the minimum of ${constraints.minStaffPerHour}.`,
+            });
+          }
+
+          if (
+            constraints.maxStaffPerHour !== null &&
+            staffCount > Number(constraints.maxStaffPerHour)
+          ) {
+            issues.push({
+              type: 'max_staff',
+              message: `${staffCount} employee(s) are scheduled between ${slot.start}-${slot.end} on ${date}, above the maximum of ${constraints.maxStaffPerHour}.`,
+            });
+          }
+          
         }
-
-        if (
-          constraints.maxStaffPerHour !== null &&
-          staffCount > Number(constraints.maxStaffPerHour)
-        ) {
-          issues.push({
-            type: 'max_staff',
-            message: `${staffCount} employee(s) are scheduled between ${slot.start}-${slot.end} on ${date}, above the maximum of ${constraints.maxStaffPerHour}.`,
-          });
-        }
-      }
+      }  
     }
 
     for (const requirement of constraints.roleRequirements) {
@@ -848,9 +853,10 @@ async function evaluateWeekForFinalization(teamId, weekStartDate) {
         shiftDate: shift.shift_date,
         startTime: shift.start_time,
         endTime: shift.end_time,
-        employmentRole: shift.employment_role,
+        employmentRole: shift.employment_role,        
       },
       excludedShiftId: shift.id,
+      checkWorkerNumber: true,
     });
 
     issues.push(...shiftIssues);

@@ -8,7 +8,7 @@
     { label: 'Saturday', value: 6 },
     { label: 'Sunday', value: 0 },
   ];
-
+  
   const page = document.body.dataset.page;
 
   document.addEventListener('DOMContentLoaded', () => {
@@ -780,6 +780,7 @@
 
       try {
         setStatus(statusNode, 'Saving availability...', 'info');
+        
         await apiRequest(`/api/availability/${userId}`, {
           method: 'PUT',
           body: {
@@ -1036,24 +1037,44 @@
     });
 
     document.getElementById('finalizeScheduleButton').addEventListener('click', async () => {
-      const managerPassword = window.prompt(
+      /*const managerPassword = window.prompt(
         `Enter your manager password to finalize the week of ${formatWeekLabel(currentWeekStart)}.`
       );
 
       if (!managerPassword) {
         return;
-      }
+      }*/
+
+      const payload = {
+        teamId,
+        weekStartDate: currentWeekStart,
+        //managerPassword
+      };
 
       try {
         setStatus(scheduleStatus, 'Finalizing schedule...', 'info');
-        await apiRequest('/api/schedule/finalize', {
+        const result = await runWithOverride(
+          (overridePassword) =>
+              apiRequest('/api/schedule/finalize', {
+            method: 'POST',
+            body: overridePassword ? { ...payload, overridePassword } : payload,
+          }
+          ),
+          document.getElementById('shiftIssueList')
+        );
+
+        if (!result) {
+          setStatus(scheduleStatus, 'Finalize have been cancelled.', 'info');
+          return;
+        }
+        /*await apiRequest('/api/schedule/finalize', {
           method: 'POST',
           body: {
             teamId,
             weekStartDate: currentWeekStart,
             managerPassword,
           },
-        });
+        });*/
         await loadSchedule();
         setStatus(scheduleStatus, 'Schedule finalized.', 'success');
       } catch (error) {
