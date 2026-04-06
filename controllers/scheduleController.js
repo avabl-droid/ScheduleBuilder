@@ -358,25 +358,6 @@ exports.updateShift = async (req, res) => {
       removedShift: existingShift,
     });
 
-    /*const allIssues = await evaluateShiftMutation({
-      teamId: existingShift.team_id,
-      candidateShift: {
-        id: shiftId,
-        userId: nextUserId,
-        shiftDate: nextDate,
-        startTime: nextStartTime,
-        endTime: nextEndTime,
-        employmentRole: nextRole,
-      },
-      excludedShiftId: shiftId,
-      removedShift: existingShift,
-    });
-    const issues = allIssues.filter(
-      (issue) => issue.type === 'availability' || issue.type === 'constraints'
-    );
-    console.log("filtered update issues: ", issues); */
-
-
     await requireOverrideIfNeeded(issues, Number(managerUserId), overridePassword);
 
     await exec('BEGIN TRANSACTION');
@@ -463,16 +444,6 @@ exports.deleteShift = async (req, res) => {
       excludedShiftId: shiftId,
     });
     //
-    /*
-    const allIssues = await evaluateShiftMutation({
-      teamId: existingShift.team_id,
-      removedShift: existingShift,
-      excludedShiftId: shiftId,
-    });
-    const issues = allIssues.filter(
-      (issue) => issue.type === 'availability' || issue.type === 'constraints'
-    );*/
-
     await requireOverrideIfNeeded(issues, Number(managerUserId), overridePassword);
 
     await exec('BEGIN TRANSACTION');

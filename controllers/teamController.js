@@ -1,4 +1,4 @@
-const { exec, get, run } = require('../db/query');
+const { exec, get, run, all } = require('../db/query');
 const { createNotification } = require('../services/notificationService');
 const {
   badRequest,
@@ -181,6 +181,134 @@ exports.addMembersToTeam = async (req, res) => {
       res.status(201).send({
         teamId,
         createdMembers,
+      });
+    } catch (error) {
+      await exec('ROLLBACK');
+      throw error;
+    }
+  } catch (error) {
+    res.status(error.statusCode || 500).send({ error: error.message });
+  }
+};
+
+exports.deleteTeamMember = async (req, res) => {
+  try {
+    if (!req.auth) {
+      throw badRequest('Authentication required.', 401);
+    }
+
+    const teamId = Number(req.params.teamId);
+    const memberUserId = Number(req.params.memberId);
+    const managerUserId = req.auth.userId;
+    const { deleteFutureShiftsOnly = true } = req.body; // По умолчанию удаляем только будущие смены
+
+
+    await ensureManagerForTeam(teamId, Number(managerUserId));
+
+    if (memberUserId === managerUserId) {
+      throw badRequest('You cannot remove yourself from the team.', 400);
+    }
+    const membership = await getMembership(teamId, memberUserId);
+    if (!membership) {
+      throw badRequest('Team member not found.', 404);
+    }
+
+    /*const account = await getAccountById(memberUserId);
+    if (!account) {
+      throw badRequest('User not found.', 404);
+    }*/
+
+    await exec('BEGIN TRANSACTION');
+
+    try {
+      const today = new Date().toISOString().slice(0, 10);
+      var shiftsToDelete = [];
+      var shiftsKept = [];
+
+      if (deleteFutureShiftsOnly) {
+        // Удаляем только будущие смены - включая сегодня
+        shiftsToDelete = await all(
+          `SELECT id, shift_date FROM shifts WHERE team_id = ? AND user_id = ? AND shift_date >= ?`,
+          [teamId, memberUserId, today]
+        );
+        // Сохраняем прошлые смены
+        shiftsKept = await all(
+          `SELECT id, shift_date FROM shifts WHERE team_id = ? AND user_id = ? AND shift_date < ?`,
+          [teamId, memberUserId, today]
+        );
+        if (!shiftsToDelete) {
+          shiftsToDelete=[];
+        }
+        if (!shiftsKept) {
+          shiftsKept =[];
+        }
+      } else {
+        // Удаляем все смены
+        shiftsToDelete = await all(
+          `SELECT id, shift_date FROM shifts WHERE team_id = ? AND user_id = ?`,
+          [teamId, memberUserId]
+        );
+      }
+
+      // Удаляем выбранные смены
+      if (shiftsToDelete.length > 0) {
+        const placeholders = shiftsToDelete.map(() => '?').join(',');
+        const shiftIds = shiftsToDelete.map(s => s.id);
+        await run(          
+          `DELETE FROM shifts WHERE id IN (${placeholders})`,
+          shiftIds
+        );
+        console.log("deleted shifts", shiftIds);
+      }
+
+      // Удаляем availability участника (опционально)
+      await run(`DELETE FROM availability WHERE user_id = ?`, [memberUserId]);
+
+      // Удаляем членство в команде
+      await run(`DELETE FROM team_memberships WHERE team_id = ? AND user_id = ?`, [teamId, memberUserId]);
+
+      // Записываем аудит удаления shifts
+      //const weekStartDate = getWeekStartDate(today);
+      //await touchScheduleWeek(teamId, weekStartDate);
+      
+      /*await recordShiftAudit({
+        teamId,
+        userId: memberUserId,
+        shiftId: null,
+        weekStartDate,
+        action: 'delete_member',
+        summary: deleteFutureShiftsOnly 
+          ? `Team member was removed. ${shiftsToDelete.length} future shifts deleted, ${shiftsKept.length} past shifts preserved.`
+          : `Team member was removed. All ${shiftsToDelete.length} shifts deleted.`,
+        createdByUserId: Number(managerUserId),
+      });*/
+
+      // Создаем уведомление для удаленного пользователя
+      await createNotification({
+        userId: memberUserId,
+        teamId,
+        notificationType: 'team_removed',
+        subject: `You were removed from the team`,
+        message: deleteFutureShiftsOnly
+          ? `You have been removed from the team. Your future shifts have been cancelled, but your past shifts remain in the records.`
+          : `You have been removed from the team. All your shifts have been deleted.`,
+        metadata: {
+          teamId,
+          removedBy: managerUserId,
+          futureShiftsDeleted: shiftsToDelete.length,
+          pastShiftsPreserved: shiftsKept.length,
+        },
+      });
+
+      await exec('COMMIT');
+
+      res.send({
+        message: deleteFutureShiftsOnly
+          ? `Team member removed. ${shiftsToDelete.length} future shifts deleted, ${shiftsKept.length} past shifts preserved.`
+          : `Team member removed. All ${shiftsToDelete.length} shifts deleted.`,
+        userId: memberUserId,
+        futureShiftsDeleted: shiftsToDelete.length,
+        pastShiftsPreserved: shiftsKept.length,
       });
     } catch (error) {
       await exec('ROLLBACK');

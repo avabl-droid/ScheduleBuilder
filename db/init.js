@@ -145,7 +145,7 @@ async function initializeDatabase() {
       created_at TEXT NOT NULL DEFAULT CURRENT_TIMESTAMP,
       FOREIGN KEY (team_id) REFERENCES teams(id),
       FOREIGN KEY (user_id) REFERENCES accounts(id),
-      FOREIGN KEY (shift_id) REFERENCES shifts(id),
+      --FOREIGN KEY (shift_id) REFERENCES shifts(id),
       FOREIGN KEY (created_by_user_id) REFERENCES accounts(id)
     );
 

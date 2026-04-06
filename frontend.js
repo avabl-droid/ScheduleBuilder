@@ -751,8 +751,12 @@
     });
   }
 
-  function renderMembers(members) {
+  async function renderMembers(members) {
+    const session = await requireSession();    
+    const membership = getPrimaryMembership(session);
+    const teamId = membership.teamId;    
     const tbody = document.getElementById('teamMembersBody');
+    const inviteStatus = document.getElementById('teamInviteStatus');
     tbody.innerHTML = members
       .map(
         (member) => `
@@ -761,10 +765,36 @@
             <td>${escapeHtml(member.primaryEmail)}</td>
             <td>${escapeHtml(member.employmentRole || member.systemRole)}</td>
             <td>${member.isManager ? '<span class="pill">Manager</span>' : 'Team Member'}</td>
+            <td><button type="button" class="danger-btn" data-delete-member="${member.id}">Delete</button></td>
           </tr>
         `
       )
       .join('');
+      //!
+      document.querySelectorAll('[data-delete-member]').forEach((button) => {
+        
+      button.addEventListener('click', async () => {
+        if (!window.confirm('Delete this team member?')) {
+            return;
+        }
+        const memberId = button.dataset.deleteMember;
+        const memberName = button.dataset.memberName;         
+
+        try {
+          setStatus(inviteStatus, 'Deleting team member...', 'info');
+          const result = await apiRequest(`/api/team/${teamId}/members/${memberId}`, {
+                method: 'DELETE',
+                body: {},
+              });
+            //document.getElementById('shiftIssueList')
+    
+        // Вызываем функцию удаления с выбором опций
+
+        } catch (error) {
+          setStatus(inviteStatus, "!!!!!", error.message, 'error');
+        }
+      })
+    });
   }
 
   async function initAvailabilityPage() {
@@ -942,6 +972,7 @@
         });
       });
 
+      //!
       document.querySelectorAll('[data-delete-shift]').forEach((button) => {
         button.addEventListener('click', async () => {
           if (!window.confirm('Delete this shift?')) {
@@ -1064,7 +1095,7 @@
         );
 
         if (!result) {
-          setStatus(scheduleStatus, 'Finalize have been cancelled.', 'info');
+          setStatus(scheduleStatus, 'Finalization has been cancelled.', 'info');
           return;
         }
         /*await apiRequest('/api/schedule/finalize', {
